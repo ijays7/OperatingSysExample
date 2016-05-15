@@ -12,9 +12,39 @@
     tools:context="com.ijays.operatonsysexample.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <TextView
+        android:id="@+id/current_process"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="3dp"
+        android:text="当前进程名;"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/process_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/current_process"
+        android:paddingLeft="3dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/pass_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_process"
+        android:layout_marginTop="10dp"
+        android:hint="请输入需要传递的数据"
+        android:maxEms="30"
+        android:maxLines="3"
+        android:textSize="14sp" />
+
     <Button
         android:id="@+id/multi_process"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/multity_process"/>
+        android:layout_below="@id/pass_data"
+        android:layout_marginTop="10dp"
+        android:text="@string/multi_process" />
 </RelativeLayout>

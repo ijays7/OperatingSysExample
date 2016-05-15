@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/current_process"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:text="test"/>
-</LinearLayout>
+        android:text="当前的进程名:"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/process_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/current_process"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/data_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_process"
+        android:text="传递的数据: "
+        android:layout_marginTop="13dp"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/pass_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_process"
+        android:layout_toRightOf="@id/data_name"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="13dp"
+        android:textSize="14sp" />
+</RelativeLayout>
