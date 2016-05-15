@@ -19,7 +19,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ijays.operatonsysexample.model.PassDataModel;
 import com.ijays.operatonsysexample.utils.Utils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import butterknife.Bind;
 
@@ -27,6 +33,8 @@ public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     @Bind(R.id.multi_process)
     Button mMultiProcess;
+    @Bind(R.id.share_file)
+    Button mShareFile;
     @Bind(R.id.process_name)
     TextView mProcessName;
     @Bind(R.id.pass_data)
@@ -53,6 +61,7 @@ public class MainActivity extends BaseActivity
         setSupportActionBar(mToolbar);
         mProcessName.setText(Utils.getProcessName(getApplicationContext(), Process.myPid()));
         mMultiProcess.setOnClickListener(this);
+        mShareFile.setOnClickListener(this);
         mFab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -107,13 +116,51 @@ public class MainActivity extends BaseActivity
             case R.id.multi_process:
                 if (canPassData(view)) {
                     Intent intent = new Intent(MainActivity.this, MultiProcessActivity.class);
-                    intent.putExtra("pass_data", mPassData.getText().toString());
+                    intent.putExtra("pass_data", mPassData.getText().toString().trim());
+                    intent.putExtra(AppConstants.JUMP_TYPE, AppConstants.INTENT_METHOD);
                     startActivity(intent);
+                }
+                break;
+            case R.id.share_file:
+                if (canPassData(view)) {
+                    passDataBySharingFile();
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    private void passDataBySharingFile() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PassDataModel model = new PassDataModel(mPassData.getText().toString().trim());
+                File dir = new File(AppConstants.FILE_PATH);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+                File cacheFile = new File(AppConstants.CACHE_FILE);
+                ObjectOutputStream objectOutputStream = null;
+                try {
+                    objectOutputStream = new ObjectOutputStream(new FileOutputStream(cacheFile));
+                    objectOutputStream.writeObject(model);
+                    Intent intent = new Intent(MainActivity.this, MultiProcessActivity.class);
+                    intent.putExtra(AppConstants.JUMP_TYPE, AppConstants.SHARED_FILE_METHOD);
+                    startActivity(intent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (objectOutputStream != null) {
+                        try {
+                            objectOutputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }).start();
     }
 
     /**
@@ -122,12 +169,14 @@ public class MainActivity extends BaseActivity
      * @param view
      */
     private boolean canPassData(View view) {
-        if (TextUtils.isEmpty(mPassData.getText().toString())) {
+        String content = mPassData.getText().toString().trim();
+        if (content != null && content.length() > 0) {
+            return true;
+
+        } else {
             Snackbar.make(view, "请输入需要传输的数据", Snackbar.LENGTH_SHORT).setAction("Action", null)
                     .show();
             return false;
-        } else {
-            return true;
         }
     }
 

@@ -47,4 +47,11 @@
         android:layout_below="@id/pass_data"
         android:layout_marginTop="10dp"
         android:text="@string/multi_process" />
+    <Button
+        android:id="@+id/share_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="文件共享IPC"
+        android:layout_below="@id/multi_process"/>
 </RelativeLayout>
