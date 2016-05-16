@@ -1,10 +1,12 @@
-package com.ijays.operatonsysexample;
+package com.ijays.operatonsysexample.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Process;
 import android.widget.TextView;
 
+import com.ijays.operatonsysexample.AppConstants;
+import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.model.PassDataModel;
 import com.ijays.operatonsysexample.utils.Utils;
 

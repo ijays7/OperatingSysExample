@@ -1,4 +1,4 @@
-package com.ijays.operatonsysexample;
+package com.ijays.operatonsysexample.activity;
 
 
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Process;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ijays.operatonsysexample.AppConstants;
+import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.model.PassDataModel;
 import com.ijays.operatonsysexample.utils.Utils;
 
@@ -41,6 +42,8 @@ public class MainActivity extends BaseActivity
     EditText mPassData;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+    @Bind(R.id.test)
+    Button mTest;
     @Bind(R.id.fab)
     FloatingActionButton mFab;
 
@@ -62,6 +65,7 @@ public class MainActivity extends BaseActivity
         mProcessName.setText(Utils.getProcessName(getApplicationContext(), Process.myPid()));
         mMultiProcess.setOnClickListener(this);
         mShareFile.setOnClickListener(this);
+        mTest.setOnClickListener(this);
         mFab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -126,6 +130,12 @@ public class MainActivity extends BaseActivity
                     passDataBySharingFile();
                 }
                 break;
+            case R.id.test:
+                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent,0x9090);
+                break;
             default:
                 break;
         }
@@ -188,6 +198,7 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            startActivity(new Intent(MainActivity.this,TakePhotoActivity.class));
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

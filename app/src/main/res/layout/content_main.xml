@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.ijays.operatonsysexample.MainActivity"
+    tools:context=".activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <TextView
@@ -54,4 +54,12 @@
         android:layout_marginTop="10dp"
         android:text="文件共享IPC"
         android:layout_below="@id/multi_process"/>
+    <Button
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="test"
+        android:layout_below="@id/share_file"/>
+
 </RelativeLayout>
