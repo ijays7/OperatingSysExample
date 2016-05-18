@@ -1,13 +1,18 @@
 package com.ijays.operatonsysexample.activity;
 
 
+import android.content.ComponentName;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Process;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +29,7 @@ import com.ijays.operatonsysexample.AppConstants;
 import com.ijays.operatonsysexample.provider.PassDataDbHelper;
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.model.PassDataModel;
+import com.ijays.operatonsysexample.service.TCPServerService;
 import com.ijays.operatonsysexample.utils.Utils;
 
 import java.io.File;
@@ -43,6 +49,8 @@ public class MainActivity extends BaseActivity
     Button mContentProviderBt;
     @Bind(R.id.messagener)
     Button mMessenger;
+    @Bind(R.id.socketIPC)
+    Button mSocketIpc;
     @Bind(R.id.process_name)
     TextView mProcessName;
     @Bind(R.id.pass_data)
@@ -54,6 +62,7 @@ public class MainActivity extends BaseActivity
     @Bind(R.id.fab)
     FloatingActionButton mFab;
 
+    private boolean isStartService;
 
     @Override
     protected int getContentViewId() {
@@ -63,7 +72,6 @@ public class MainActivity extends BaseActivity
     @Override
     protected void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
-
         initViews();
     }
 
@@ -74,6 +82,7 @@ public class MainActivity extends BaseActivity
         mShareFile.setOnClickListener(this);
         mContentProviderBt.setOnClickListener(this);
         mMessenger.setOnClickListener(this);
+        mSocketIpc.setOnClickListener(this);
         mTest.setOnClickListener(this);
         mFab.setOnClickListener(this);
 
@@ -157,10 +166,33 @@ public class MainActivity extends BaseActivity
                     jumpToMultiProcess(AppConstants.MESSENGER_METHOD);
                 }
                 break;
+            case R.id.socketIPC:
+                if (canPassData(view)) {
+                    Intent service = new Intent(this, TCPServerService.class);
+//                    startService(service);
+                    bindService(service, connection, Context.BIND_AUTO_CREATE);
+                    isStartService = true;
+                    jumpToMultiProcess(123);
+                }
+                break;
             default:
                 break;
         }
     }
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            TCPServerService service = ((TCPServerService.MyBinder) iBinder).getService();
+            if (TextUtils.isEmpty(mPassData.getText().toString()))
+                service.setContent(mPassData.getText().toString().trim());
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
 
 
     /**
@@ -246,5 +278,13 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (isStartService) {
+            unbindService(connection);
+        }
+        super.onDestroy();
     }
 }

@@ -13,6 +13,8 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.Process;
 import android.os.RemoteException;
+import android.os.SystemClock;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.ijays.operatonsysexample.AppConstants;
@@ -21,10 +23,16 @@ import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.model.PassDataModel;
 import com.ijays.operatonsysexample.utils.Utils;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import butterknife.Bind;
 
@@ -41,6 +49,7 @@ public class MultiProcessActivity extends BaseActivity {
     //记录当前进入的跳转类型
     private int mCurrentType;
     private String mContent;
+    private PrintWriter mPrintWriter;
     private Messenger mService;
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
@@ -61,6 +70,19 @@ public class MultiProcessActivity extends BaseActivity {
         }
     };
     private Messenger mGetMsgMessenger = new Messenger(new MessengerHandler());
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1234:
+                    mPassData.setText(mContent);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected int getContentViewId() {
@@ -83,6 +105,7 @@ public class MultiProcessActivity extends BaseActivity {
      */
     private void setShownData(Intent intent) {
         mCurrentType = intent.getIntExtra(AppConstants.JUMP_TYPE, 1);
+        mContent = intent.getStringExtra(AppConstants.PASS_DATA);
 
         switch (mCurrentType) {
             case AppConstants.INTENT_METHOD:
@@ -95,13 +118,12 @@ public class MultiProcessActivity extends BaseActivity {
 
                 break;
             case AppConstants.MESSENGER_METHOD:
-                mContent = intent.getStringExtra(AppConstants.PASS_DATA);
                 Intent newIntent = new Intent(this, Messagerservice.class);
                 bindService(newIntent, mConnection, Context.BIND_AUTO_CREATE);
                 break;
             case AppConstants.CONTENT_PROVIDER_METHOD:
                 //从content provider中获取数据
-                String content=null;
+                String content = null;
                 Uri uri = Uri.parse("content://com.ijays.operatonsysexample.provider/pass");
                 Cursor cursor = getContentResolver().query(uri, new String[]{"_id", "content"}, null, null, null);
                 while (cursor.moveToNext()) {
@@ -110,9 +132,59 @@ public class MultiProcessActivity extends BaseActivity {
                 mPassData.setText(content);
                 cursor.close();
                 break;
+            case 123:
+                new Thread() {
+                    @Override
+                    public void run() {
+
+                        connectTCPServer();
+                    }
+                }.start();
+                break;
 
             default:
                 break;
+        }
+    }
+
+    /**
+     * 连接到tcp socket服务器并接收来自服务器的消息
+     */
+    private void connectTCPServer() {
+        Socket socket = null;
+        while (socket == null) {
+            try {
+                socket = new Socket("localhost", 9000);
+                mPrintWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                Log.e("SONGJIE", "connection successful");
+            } catch (IOException e) {
+//                SystemClock.sleep(1000);
+                e.printStackTrace();
+            }
+        }
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Log.e("SONGJIE", "test2");
+            while (!MultiProcessActivity.this.isFinishing()) {
+                Log.e("SONGJIE", "test3");
+                String msg = br.readLine();
+                Log.e("SONGJIE", "test4");
+                if (msg != null) {
+                    Log.e("SONGJIE", msg + "------");
+                    mHandler.obtainMessage(1234, msg).sendToTarget();
+                }
+            }
+            if (socket != null) {
+                socket.close();
+            }
+            if (mPrintWriter != null) {
+                mPrintWriter.close();
+            }
+            if (br != null) {
+                br.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -60,17 +60,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="test" />
+
     <Button
         android:id="@+id/content_provider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="内容提供者IPC" />
+
     <Button
         android:id="@+id/messagener"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Messenger实现IPC" />
+
+    <Button
+        android:id="@+id/socketIPC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="socket实现ipc" />
 
 </LinearLayout>
