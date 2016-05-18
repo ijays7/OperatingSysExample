@@ -36,6 +36,10 @@ public class MainActivity extends BaseActivity
     Button mMultiProcess;
     @Bind(R.id.share_file)
     Button mShareFile;
+    @Bind(R.id.content_provider)
+    Button mContentProviderBt;
+    @Bind(R.id.messagener)
+    Button mMessenger;
     @Bind(R.id.process_name)
     TextView mProcessName;
     @Bind(R.id.pass_data)
@@ -65,6 +69,8 @@ public class MainActivity extends BaseActivity
         mProcessName.setText(Utils.getProcessName(getApplicationContext(), Process.myPid()));
         mMultiProcess.setOnClickListener(this);
         mShareFile.setOnClickListener(this);
+        mContentProviderBt.setOnClickListener(this);
+        mMessenger.setOnClickListener(this);
         mTest.setOnClickListener(this);
         mFab.setOnClickListener(this);
 
@@ -119,10 +125,7 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.multi_process:
                 if (canPassData(view)) {
-                    Intent intent = new Intent(MainActivity.this, MultiProcessActivity.class);
-                    intent.putExtra("pass_data", mPassData.getText().toString().trim());
-                    intent.putExtra(AppConstants.JUMP_TYPE, AppConstants.INTENT_METHOD);
-                    startActivity(intent);
+                    jumpToMultiProcess(AppConstants.INTENT_METHOD);
                 }
                 break;
             case R.id.share_file:
@@ -131,14 +134,34 @@ public class MainActivity extends BaseActivity
                 }
                 break;
             case R.id.test:
-                Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(intent,0x9090);
+                startActivityForResult(intent, 0x9090);
+                break;
+            case R.id.content_provider:
+                break;
+            case R.id.messagener:
+                if (canPassData(view)) {
+//                    Intent startServiceIntent=new Intent(this,Messagerservice.class);
+//                    startService(startServiceIntent);
+                    jumpToMultiProcess(AppConstants.MESSENGER_METHOD);
+                }
                 break;
             default:
                 break;
         }
+    }
+
+
+    /**
+     * 跳转至MultiProcess页面
+     */
+    private void jumpToMultiProcess(int jumpType) {
+        Intent intent = new Intent(MainActivity.this, MultiProcessActivity.class);
+        intent.putExtra(AppConstants.PASS_DATA, mPassData.getText().toString().trim());
+        intent.putExtra(AppConstants.JUMP_TYPE, jumpType);
+        startActivity(intent);
     }
 
     private void passDataBySharingFile() {
@@ -198,7 +221,7 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-            startActivity(new Intent(MainActivity.this,TakePhotoActivity.class));
+            startActivity(new Intent(MainActivity.this, TakePhotoActivity.class));
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

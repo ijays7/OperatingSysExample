@@ -25,6 +25,8 @@
             android:name=".activity.MultiProcessActivity"
             android:process=":reomote" />
         <activity android:name=".activity.TakePhotoActivity"></activity>
+
+        <service android:name=".service.Messagerservice" />
     </application>
 
 </manifest>
