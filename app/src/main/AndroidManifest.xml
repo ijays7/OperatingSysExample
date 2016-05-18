@@ -27,6 +27,10 @@
         <activity android:name=".activity.TakePhotoActivity"></activity>
 
         <service android:name=".service.Messagerservice" />
+        <provider
+            android:name=".provider.DataContentProvider"
+            android:authorities="com.ijays.operatonsysexample.provider"
+            android:permission="com.ijays.PROVIDER"/>
     </application>
 
 </manifest>

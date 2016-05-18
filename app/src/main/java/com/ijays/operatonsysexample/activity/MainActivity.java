@@ -1,7 +1,9 @@
 package com.ijays.operatonsysexample.activity;
 
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Process;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ijays.operatonsysexample.AppConstants;
+import com.ijays.operatonsysexample.provider.PassDataDbHelper;
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.model.PassDataModel;
 import com.ijays.operatonsysexample.utils.Utils;
@@ -140,6 +143,12 @@ public class MainActivity extends BaseActivity
                 startActivityForResult(intent, 0x9090);
                 break;
             case R.id.content_provider:
+                ContentValues values = new ContentValues();
+                values.put("content", mPassData.getText().toString().trim());
+                SQLiteDatabase db = new PassDataDbHelper(this).getWritableDatabase();
+                db.insert(PassDataDbHelper.PASS_TABLE_NAME, null, values);
+                jumpToMultiProcess(AppConstants.CONTENT_PROVIDER_METHOD);
+
                 break;
             case R.id.messagener:
                 if (canPassData(view)) {

@@ -4,6 +4,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -93,9 +95,23 @@ public class MultiProcessActivity extends BaseActivity {
 
                 break;
             case AppConstants.MESSENGER_METHOD:
-                mContent=intent.getStringExtra(AppConstants.PASS_DATA);
+                mContent = intent.getStringExtra(AppConstants.PASS_DATA);
                 Intent newIntent = new Intent(this, Messagerservice.class);
                 bindService(newIntent, mConnection, Context.BIND_AUTO_CREATE);
+                break;
+            case AppConstants.CONTENT_PROVIDER_METHOD:
+                //从content provider中获取数据
+                String content=null;
+                Uri uri = Uri.parse("content://com.ijays.operatonsysexample.provider/pass");
+                Cursor cursor = getContentResolver().query(uri, new String[]{"_id", "content"}, null, null, null);
+                while (cursor.moveToNext()) {
+                    content = cursor.getString(1);
+                }
+                mPassData.setText(content);
+                cursor.close();
+                break;
+
+            default:
                 break;
         }
     }
@@ -127,7 +143,7 @@ public class MultiProcessActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (mCurrentType == 123)
+        if (mCurrentType == AppConstants.MESSENGER_METHOD)
             unbindService(mConnection);
         super.onDestroy();
     }
