@@ -2,12 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ijays.operatonsysexample">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,14 +27,18 @@
         <activity
             android:name=".activity.MultiProcessActivity"
             android:process=":reomote" />
+        <activity
+            android:name=".activity.PicExploreActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.TakePhotoActivity"></activity>
 
         <service android:name=".service.Messagerservice" />
-        <service android:name=".service.TCPServerService"/>
+        <service android:name=".service.TCPServerService" />
+
         <provider
             android:name=".provider.DataContentProvider"
             android:authorities="com.ijays.operatonsysexample.provider"
-            android:permission="com.ijays.PROVIDER"/>
+            android:permission="com.ijays.PROVIDER" />
     </application>
 
 </manifest>

@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -264,6 +264,7 @@ public class MainActivity extends BaseActivity
             // Handle the camera action
             startActivity(new Intent(MainActivity.this, TakePhotoActivity.class));
         } else if (id == R.id.nav_gallery) {
+            startActivity(new Intent(MainActivity.this,PicExploreActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
 
