@@ -14,7 +14,10 @@ import android.os.Messenger;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.ijays.operatonsysexample.AppConstants;
@@ -45,6 +48,8 @@ public class MultiProcessActivity extends BaseActivity {
     TextView mProcessName;
     @Bind(R.id.pass_data)
     TextView mPassData;
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
 
     //记录当前进入的跳转类型
     private int mCurrentType;
@@ -92,6 +97,15 @@ public class MultiProcessActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
+
+        setSupportActionBar(mToolbar);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setTitle("MultiProcess");
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            Log.e("songjie","actionbar");
+            ab.setDefaultDisplayHomeAsUpEnabled(true);
+        }
 
         Intent intent = getIntent();
         mProcessName.setText(Utils.getProcessName(getApplicationContext(), Process.myPid()));
@@ -211,6 +225,14 @@ public class MultiProcessActivity extends BaseActivity {
                 }
             }
         }).start();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

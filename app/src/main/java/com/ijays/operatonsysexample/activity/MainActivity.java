@@ -77,6 +77,7 @@ public class MainActivity extends BaseActivity
 
     private void initViews() {
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         mProcessName.setText(Utils.getProcessName(getApplicationContext(), Process.myPid()));
         mMultiProcess.setOnClickListener(this);
         mShareFile.setOnClickListener(this);

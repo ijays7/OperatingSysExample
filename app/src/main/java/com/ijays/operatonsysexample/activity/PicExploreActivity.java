@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.fragment.ImageListFragment;
@@ -41,7 +42,8 @@ public class PicExploreActivity extends BaseActivity {
 
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+//            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            ab.setTitle("PicExplore");
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -53,6 +55,7 @@ public class PicExploreActivity extends BaseActivity {
 
     /**
      * 初始化viewpager
+     *
      * @param viewPager
      */
     private void setupViewPager(ViewPager viewPager) {
@@ -102,5 +105,13 @@ public class PicExploreActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitles.get(position);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
