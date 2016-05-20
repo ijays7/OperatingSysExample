@@ -47,8 +47,10 @@ public class MainActivity extends BaseActivity
     Button mShareFile;
     @Bind(R.id.content_provider)
     Button mContentProviderBt;
-    @Bind(R.id.messagener)
+    @Bind(R.id.messenger)
     Button mMessenger;
+    @Bind(R.id.bt_aidl)
+    Button mAidlIPC;
     @Bind(R.id.socketIPC)
     Button mSocketIpc;
     @Bind(R.id.process_name)
@@ -57,8 +59,8 @@ public class MainActivity extends BaseActivity
     EditText mPassData;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.test)
-    Button mTest;
+    //    @Bind(R.id.test)
+//    Button mTest;
     @Bind(R.id.fab)
     FloatingActionButton mFab;
 
@@ -83,8 +85,9 @@ public class MainActivity extends BaseActivity
         mShareFile.setOnClickListener(this);
         mContentProviderBt.setOnClickListener(this);
         mMessenger.setOnClickListener(this);
+        mAidlIPC.setOnClickListener(this);
         mSocketIpc.setOnClickListener(this);
-        mTest.setOnClickListener(this);
+//        mTest.setOnClickListener(this);
         mFab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -108,28 +111,6 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
@@ -146,26 +127,33 @@ public class MainActivity extends BaseActivity
                     passDataBySharingFile();
                 }
                 break;
-            case R.id.test:
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(intent, 0x9090);
-                break;
+//            case R.id.test:
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.setType("*/*");
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);
+//                startActivityForResult(intent, 0x9090);
+//                break;
             case R.id.content_provider:
-                ContentValues values = new ContentValues();
-                values.put("content", mPassData.getText().toString().trim());
-                SQLiteDatabase db = new PassDataDbHelper(this).getWritableDatabase();
-                db.insert(PassDataDbHelper.PASS_TABLE_NAME, null, values);
-                jumpToMultiProcess(AppConstants.CONTENT_PROVIDER_METHOD);
-
+                if (canPassData(view)) {
+                    ContentValues values = new ContentValues();
+                    values.put("content", mPassData.getText().toString().trim());
+                    SQLiteDatabase db = new PassDataDbHelper(this).getWritableDatabase();
+                    db.insert(PassDataDbHelper.PASS_TABLE_NAME, null, values);
+                    jumpToMultiProcess(AppConstants.CONTENT_PROVIDER_METHOD);
+                }
                 break;
-            case R.id.messagener:
+            case R.id.messenger:
                 if (canPassData(view)) {
 //                    Intent startServiceIntent=new Intent(this,Messagerservice.class);
 //                    startService(startServiceIntent);
                     jumpToMultiProcess(AppConstants.MESSENGER_METHOD);
                 }
+                break;
+            case R.id.bt_aidl:
+                if (canPassData(view)) {
+                    jumpToMultiProcess(AppConstants.AIDL_METHOD);
+                }
+
                 break;
             case R.id.socketIPC:
                 if (canPassData(view)) {
@@ -173,7 +161,7 @@ public class MainActivity extends BaseActivity
 //                    startService(service);
                     bindService(service, connection, Context.BIND_AUTO_CREATE);
                     isStartService = true;
-                    jumpToMultiProcess(123);
+                    jumpToMultiProcess(AppConstants.SOCKET_METHOD);
                 }
                 break;
             default:
@@ -265,7 +253,7 @@ public class MainActivity extends BaseActivity
             // Handle the camera action
             startActivity(new Intent(MainActivity.this, TakePhotoActivity.class));
         } else if (id == R.id.nav_gallery) {
-            startActivity(new Intent(MainActivity.this,PicExploreActivity.class));
+            startActivity(new Intent(MainActivity.this, PicExploreActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -280,6 +268,28 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

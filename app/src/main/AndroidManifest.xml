@@ -34,6 +34,7 @@
 
         <service android:name=".service.Messagerservice" />
         <service android:name=".service.TCPServerService" />
+        <service android:name=".service.AIDLService"/>
 
         <provider
             android:name=".provider.DataContentProvider"

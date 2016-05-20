@@ -55,13 +55,6 @@
         android:text="文件共享IPC" />
 
     <Button
-        android:id="@+id/test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="test" />
-
-    <Button
         android:id="@+id/content_provider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,11 +62,18 @@
         android:text="内容提供者IPC" />
 
     <Button
-        android:id="@+id/messagener"
+        android:id="@+id/messenger"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Messenger实现IPC" />
+
+    <Button
+        android:id="@+id/bt_aidl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="AIDL实现IPC" />
 
     <Button
         android:id="@+id/socketIPC"

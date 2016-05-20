@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.ijays.operatonsysexample.AppConstants;
+import com.ijays.operatonsysexample.IPassDataAidl;
+import com.ijays.operatonsysexample.service.AIDLService;
 import com.ijays.operatonsysexample.service.Messagerservice;
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.model.PassDataModel;
@@ -56,6 +58,10 @@ public class MultiProcessActivity extends BaseActivity {
     private String mContent;
     private PrintWriter mPrintWriter;
     private Messenger mService;
+    private IPassDataAidl mPassDataAidl;
+    /**
+     * Messenger的service绑定
+     */
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
@@ -74,6 +80,17 @@ public class MultiProcessActivity extends BaseActivity {
 
         }
     };
+    private ServiceConnection mAidlConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            mPassDataAidl = IPassDataAidl.Stub.asInterface(iBinder);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+        }
+    };
+
     private Messenger mGetMsgMessenger = new Messenger(new MessengerHandler());
 
     private Handler mHandler = new Handler() {
@@ -82,6 +99,13 @@ public class MultiProcessActivity extends BaseActivity {
             switch (msg.what) {
                 case 1234:
                     mPassData.setText(mContent);
+                    break;
+                case 0x02:
+                    try {
+                        mPassData.setText(mPassDataAidl.passData(mContent));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
                     break;
@@ -103,7 +127,7 @@ public class MultiProcessActivity extends BaseActivity {
         if (ab != null) {
             ab.setTitle("MultiProcess");
             ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-            Log.e("songjie","actionbar");
+            Log.e("songjie", "actionbar");
             ab.setDefaultDisplayHomeAsUpEnabled(true);
         }
 
@@ -146,7 +170,7 @@ public class MultiProcessActivity extends BaseActivity {
                 mPassData.setText(content);
                 cursor.close();
                 break;
-            case 123:
+            case AppConstants.SOCKET_METHOD:
                 new Thread() {
                     @Override
                     public void run() {
@@ -155,7 +179,11 @@ public class MultiProcessActivity extends BaseActivity {
                     }
                 }.start();
                 break;
-
+            case AppConstants.AIDL_METHOD:
+                Intent bindAIDL = new Intent(this, AIDLService.class);
+                bindService(bindAIDL, mAidlConnection, Context.BIND_AUTO_CREATE);
+                mHandler.sendEmptyMessageDelayed(0x02, 500);
+                break;
             default:
                 break;
         }
@@ -237,8 +265,11 @@ public class MultiProcessActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (mCurrentType == AppConstants.MESSENGER_METHOD)
+        if (mCurrentType == AppConstants.MESSENGER_METHOD) {
             unbindService(mConnection);
+        }else if (mCurrentType==1234){
+            unbindService(mAidlConnection);
+        }
         super.onDestroy();
     }
 
