@@ -13,9 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-
 /**
- * Created by ijaysdev on 16/5/13.
+ * Created by ijaysdev on 16/5/20.
  */
 public class Utils {
     /**
@@ -69,7 +68,6 @@ public class Utils {
         Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
         return newbmp;
     }
-
     /**
      * 根据控件的大小缩放bitmap
      * @param path
@@ -95,7 +93,7 @@ public class Utils {
      * @return
      */
     public static int calculateInsampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-      //源图片的高度和宽度
+        //源图片的高度和宽度
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;

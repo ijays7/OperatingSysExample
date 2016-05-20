@@ -24,7 +24,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
 import com.ijays.operatonsysexample.AppConstants;
 import com.ijays.operatonsysexample.provider.PassDataDbHelper;
 import com.ijays.operatonsysexample.R;
@@ -59,10 +61,18 @@ public class MainActivity extends BaseActivity
     EditText mPassData;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+    @Bind(R.id.fab_menu_red)
+    FloatingActionMenu mFabMenu;
+    @Bind(R.id.fab1)
+    com.github.clans.fab.FloatingActionButton mFab1;
+    @Bind(R.id.fab2)
+    com.github.clans.fab.FloatingActionButton mFab2;
+    @Bind(R.id.fab3)
+    com.github.clans.fab.FloatingActionButton mFab3;
     //    @Bind(R.id.test)
 //    Button mTest;
-    @Bind(R.id.fab)
-    FloatingActionButton mFab;
+//    @Bind(R.id.fab)
+//    FloatingActionButton mFab;
 
     private boolean isStartService;
 
@@ -87,8 +97,11 @@ public class MainActivity extends BaseActivity
         mMessenger.setOnClickListener(this);
         mAidlIPC.setOnClickListener(this);
         mSocketIpc.setOnClickListener(this);
+        mFab1.setOnClickListener(this);
+        mFab2.setOnClickListener(this);
+        mFab3.setOnClickListener(this);
 //        mTest.setOnClickListener(this);
-        mFab.setOnClickListener(this);
+//        mFab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -98,6 +111,8 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mFabMenu.setClosedOnTouchOutside(true);
     }
 
     @Override
@@ -113,9 +128,23 @@ public class MainActivity extends BaseActivity
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.fab:
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//            case R.id.fab:
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//                break;
+            case R.id.fab1:
+                mFabMenu.close(false);
+                startActivity(new Intent(MainActivity.this, PicExploreActivity.class));
+                break;
+            case R.id.fab2:
+                mFabMenu.close(false);
+                startActivity(new Intent(MainActivity.this, TakePhotoActivity.class));
+                break;
+            case R.id.fab3:
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent, 0x9090);
                 break;
             case R.id.multi_process:
                 if (canPassData(view)) {
@@ -237,8 +266,9 @@ public class MainActivity extends BaseActivity
             return true;
 
         } else {
-            Snackbar.make(view, "请输入需要传输的数据", Snackbar.LENGTH_SHORT).setAction("Action", null)
-                    .show();
+//            Snackbar.make(view, "请输入需要传输的数据", Snackbar.LENGTH_SHORT).setAction("Action", null)
+//                    .show();
+            Toast.makeText(MainActivity.this, "请输入需要传输的数据", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
