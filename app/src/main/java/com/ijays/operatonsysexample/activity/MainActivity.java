@@ -156,12 +156,6 @@ public class MainActivity extends BaseActivity
                     passDataBySharingFile();
                 }
                 break;
-//            case R.id.test:
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.setType("*/*");
-//                intent.addCategory(Intent.CATEGORY_OPENABLE);
-//                startActivityForResult(intent, 0x9090);
-//                break;
             case R.id.content_provider:
                 if (canPassData(view)) {
                     ContentValues values = new ContentValues();
@@ -173,7 +167,7 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.messenger:
                 if (canPassData(view)) {
-//                    Intent startServiceIntent=new Intent(this,Messagerservice.class);
+//                    Intent startServiceIntent=new Intent(this,MessengerService.class);
 //                    startService(startServiceIntent);
                     jumpToMultiProcess(AppConstants.MESSENGER_METHOD);
                 }

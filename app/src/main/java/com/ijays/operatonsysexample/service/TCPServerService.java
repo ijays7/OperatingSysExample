@@ -81,7 +81,6 @@ public class TCPServerService extends Service {
                 if (str == null) {
                     break;
                 }
-                out.println("fdfdfdfsf");
             }
             if (in != null) {
                 in.close();

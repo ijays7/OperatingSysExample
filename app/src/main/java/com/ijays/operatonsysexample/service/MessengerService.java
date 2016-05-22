@@ -15,7 +15,7 @@ import com.ijays.operatonsysexample.AppConstants;
 /**
  * Created by ijaysdev on 16/5/17.
  */
-public class Messagerservice extends Service {
+public class MessengerService extends Service {
     private String mContent;
 
     private class MessengerHandler extends Handler {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +14,6 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.Process;
 import android.os.RemoteException;
-import android.os.SystemClock;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,9 +23,9 @@ import android.widget.TextView;
 import com.ijays.operatonsysexample.AppConstants;
 import com.ijays.operatonsysexample.IPassDataAidl;
 import com.ijays.operatonsysexample.service.AIDLService;
-import com.ijays.operatonsysexample.service.Messagerservice;
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.model.PassDataModel;
+import com.ijays.operatonsysexample.service.MessengerService;
 import com.ijays.operatonsysexample.utils.Utils;
 
 import java.io.BufferedReader;
@@ -122,12 +122,12 @@ public class MultiProcessActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
 
+        mToolbar.setTitle("MultiProcess");
+        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         setSupportActionBar(mToolbar);
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
-            ab.setTitle("MultiProcess");
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-            Log.e("songjie", "actionbar");
             ab.setDefaultDisplayHomeAsUpEnabled(true);
         }
 
@@ -156,7 +156,7 @@ public class MultiProcessActivity extends BaseActivity {
 
                 break;
             case AppConstants.MESSENGER_METHOD:
-                Intent newIntent = new Intent(this, Messagerservice.class);
+                Intent newIntent = new Intent(this, MessengerService.class);
                 bindService(newIntent, mConnection, Context.BIND_AUTO_CREATE);
                 break;
             case AppConstants.CONTENT_PROVIDER_METHOD:
@@ -198,7 +198,6 @@ public class MultiProcessActivity extends BaseActivity {
             try {
                 socket = new Socket("localhost", 9000);
                 mPrintWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
-                Log.e("SONGJIE", "connection successful");
             } catch (IOException e) {
 //                SystemClock.sleep(1000);
                 e.printStackTrace();
@@ -206,13 +205,9 @@ public class MultiProcessActivity extends BaseActivity {
         }
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            Log.e("SONGJIE", "test2");
             while (!MultiProcessActivity.this.isFinishing()) {
-                Log.e("SONGJIE", "test3");
                 String msg = br.readLine();
-                Log.e("SONGJIE", "test4");
                 if (msg != null) {
-                    Log.e("SONGJIE", msg + "------");
                     mHandler.obtainMessage(1234, msg).sendToTarget();
                 }
             }

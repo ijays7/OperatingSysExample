@@ -3,9 +3,10 @@
     package="com.ijays.operatonsysexample">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:name=".App"
@@ -32,7 +33,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.TakePhotoActivity"></activity>
 
-        <service android:name=".service.Messagerservice" />
+        <service android:name=".service.MessengerService" />
         <service android:name=".service.TCPServerService" />
         <service android:name=".service.AIDLService"/>
 
