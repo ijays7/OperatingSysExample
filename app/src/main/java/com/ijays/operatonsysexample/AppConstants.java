@@ -2,6 +2,8 @@ package com.ijays.operatonsysexample;
 
 import android.os.Environment;
 
+import java.io.File;
+
 /**
  * Created by ijaysdev on 16/5/15.
  */
@@ -19,4 +21,5 @@ public class AppConstants {
     public static final String ROOT_PATH = Environment.getExternalStorageDirectory().getPath();
     public static final String FILE_PATH = ROOT_PATH + "/OperationExample/";
     public static final String CACHE_FILE = FILE_PATH + "cache/";
+    public static final File SCHEDULER = new File("/sys/block/mmcblk0/queue/scheduler");
 }

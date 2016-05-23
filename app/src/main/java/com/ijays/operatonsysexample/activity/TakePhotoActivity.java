@@ -2,9 +2,12 @@ package com.ijays.operatonsysexample.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,6 +28,8 @@ public class TakePhotoActivity extends BaseActivity {
     Button mStartCamera;
     @Bind(R.id.iv_show)
     ImageView mImageView;
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
 
     private Uri mPhotoUri;
     //图片路径
@@ -39,6 +44,12 @@ public class TakePhotoActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
+
+        mToolbar.setTitle("拍照");
+        mToolbar.setTitleTextColor(Color.WHITE);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         mStartCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,5 +108,13 @@ public class TakePhotoActivity extends BaseActivity {
         intent.putExtra("scale", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
         startActivityForResult(intent, REQUEST_CROP_2);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

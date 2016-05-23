@@ -32,10 +32,11 @@
             android:name=".activity.PicExploreActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.TakePhotoActivity"></activity>
+        <activity android:name=".activity.MiscActivity"></activity>
 
         <service android:name=".service.MessengerService" />
         <service android:name=".service.TCPServerService" />
-        <service android:name=".service.AIDLService"/>
+        <service android:name=".service.AIDLService" />
 
         <provider
             android:name=".provider.DataContentProvider"

@@ -10,8 +10,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -69,12 +67,17 @@ public class MainActivity extends BaseActivity
     com.github.clans.fab.FloatingActionButton mFab2;
     @Bind(R.id.fab3)
     com.github.clans.fab.FloatingActionButton mFab3;
+    @Bind(R.id.fab4)
+    com.github.clans.fab.FloatingActionButton mFab4;
+    @Bind(R.id.fab5)
+    com.github.clans.fab.FloatingActionButton mFab5;
     //    @Bind(R.id.test)
 //    Button mTest;
 //    @Bind(R.id.fab)
 //    FloatingActionButton mFab;
 
-    private boolean isStartService;
+    private boolean mIsStartService;
+    private boolean mIsOpenMenu;//是否打开了菜单
 
     @Override
     protected int getContentViewId() {
@@ -100,19 +103,29 @@ public class MainActivity extends BaseActivity
         mFab1.setOnClickListener(this);
         mFab2.setOnClickListener(this);
         mFab3.setOnClickListener(this);
+        mFab4.setOnClickListener(this);
+        mFab5.setOnClickListener(this);
 //        mTest.setOnClickListener(this);
 //        mFab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         mFabMenu.setClosedOnTouchOutside(true);
+        mFabMenu.setOnMenuToggleListener(new FloatingActionMenu.OnMenuToggleListener() {
+            @Override
+            public void onMenuToggle(boolean opened) {
+                if (opened) {
+                    mIsOpenMenu = true;
+                }
+            }
+        });
     }
 
     @Override
@@ -120,9 +133,13 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        } else if (mIsOpenMenu) {
+            mFabMenu.close(false);
+            mIsOpenMenu =false;
         } else {
             super.onBackPressed();
         }
+
     }
 
     @Override
@@ -141,11 +158,18 @@ public class MainActivity extends BaseActivity
                 startActivity(new Intent(MainActivity.this, TakePhotoActivity.class));
                 break;
             case R.id.fab3:
+                mFabMenu.close(false);
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(intent, 0x9090);
                 break;
+            case R.id.fab4:
+                mFabMenu.close(false);
+                startActivity(new Intent(MainActivity.this, MiscActivity.class));
+            case R.id.fab5:
+                mFabMenu.close(false);
+                startActivity(new Intent(MainActivity.this, MiscActivity.class));
             case R.id.multi_process:
                 if (canPassData(view)) {
                     jumpToMultiProcess(AppConstants.INTENT_METHOD);
@@ -183,7 +207,7 @@ public class MainActivity extends BaseActivity
                     Intent service = new Intent(this, TCPServerService.class);
 //                    startService(service);
                     bindService(service, connection, Context.BIND_AUTO_CREATE);
-                    isStartService = true;
+                    mIsStartService = true;
                     jumpToMultiProcess(AppConstants.SOCKET_METHOD);
                 }
                 break;
@@ -280,6 +304,7 @@ public class MainActivity extends BaseActivity
             startActivity(new Intent(MainActivity.this, PicExploreActivity.class));
 
         } else if (id == R.id.nav_slideshow) {
+            startActivity(new Intent(MainActivity.this, MiscActivity.class));
 
         } else if (id == R.id.nav_manage) {
 
@@ -318,7 +343,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     protected void onDestroy() {
-        if (isStartService) {
+        if (mIsStartService) {
             unbindService(connection);
         }
         super.onDestroy();

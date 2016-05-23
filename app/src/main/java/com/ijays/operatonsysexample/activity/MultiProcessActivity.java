@@ -16,7 +16,6 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
