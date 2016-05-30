@@ -5,6 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.telecom.ConnectionService;
 
 import com.ijays.operatonsysexample.AppConstants;
 
@@ -51,6 +54,22 @@ public class Utils {
     }
 
     /**
+     * 判断设备是否连接网络
+     * @param context
+     * @return
+     */
+    public boolean isConnectToNet(Context context) {
+        ConnectivityManager manager = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected() == true) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
      * Resize the bitmap
      *
      * @param bitmap
@@ -68,8 +87,10 @@ public class Utils {
         Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
         return newbmp;
     }
+
     /**
      * 根据控件的大小缩放bitmap
+     *
      * @param path
      * @param reqWidth
      * @param reqHeigt
@@ -87,6 +108,7 @@ public class Utils {
 
     /**
      * 计算缩放值
+     *
      * @param options
      * @param reqWidth
      * @param reqHeight

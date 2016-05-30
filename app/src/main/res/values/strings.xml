@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="multi_process">进程间通信</string>
+    <string name="multi_process">Bundle实现IPC</string>
 
 
     <!-- I/O -->
@@ -15,4 +15,55 @@
     <string name="read_ahead_value">...</string>
     <string name="io_scheduler_status">I/O Status</string>
     <string name="io_scheduler_status_content">...</string>
+
+    <!--main page -->
+    <string name="safety_management">安全管理</string>
+    <string name="file_management">文件管理</string>
+    <string name="input_management">I/O管理</string>
+    <string name="take_picture">设备管理</string>
+    <string name="cache">获取图片</string>
+
+    <!-- process tip -->
+    <string name="bundle_tip">使用Bundle实现IPC:\n
+        \n 在Android中，四大组件中的三大组件（Activity、Service、Receiver）都是支持在Intent中传递Bundle数据的，
+        而Bundle实现了Parcelable序列化接口，由此，当一个进程中启动了另一个进程的Activity、Service和Receiver，
+        我们就可以在Bundle中携带需要传输的信息并通过Intent发送出去。遗憾的是，传输的数据必须是能够序列化的，如基本类型、
+        实现了Parcelabe接口的对象或者实现了Serializable接口的对象以及一些Android支持的特殊对象。这是最简单的一种IPC方式，
+        适用于在四大组件间实现进程通信。
+
+    </string>
+
+    <string name="file_share_tip">使用文件共享实现IPC:\n
+        \n 文件共享在Android中也可以作为一种IPC方式。两个进程通过读／写同一个文件来交换数据，如进程A把数据写入文件，
+        B进程通过读取这个文件来获取数据。在Windows中，一个文件如果被加了排斥锁将会导致其他线程无法对其访问，包括读和写，
+        而由于Android基于Linux，使得其可以实现并发地读和写，尽管这可能出现问题。\n
+        通过文件共享来共享数据对文件格式没有具体的要求，可以是文本文件，可以是XML文件，只要读写双方约定数据格式即可。
+        这种方式实现起来十分简单，不过存在很大的存在局限性，比如并发读写时，我们所读出的数据有可能不是最新的，
+        因此在实际使用中这种方式用在数据实时性不高的情况。
+
+     </string>
+
+
+    <!-- safey page -->
+    <string name="safe_measurement">1.进程沙箱隔离机制:\n在Android中，每个应用程序都运行在一个独立的Dalvik虚拟机（5.0版本为ART虚拟机）中，
+        并会在安装时会被赋予唯一的用户标识（UID），并永久保持。这样，不同的程序能够运行在独立的Linux空间中，并且每个应用的文件、数据库资源也只有资源的所有者，
+        即UID相等的用户才能访问。通过这种方法使得程序间完全隔离，杜绝了恶意程序篡改用户程序。\n
+        \n 2.应用程序签名机制:\n
+        程序开发者发布应用时，必须对其应用APK文件进行数字签名，以便标识程序作者何应用程序之间的信任关系。同时，在安装应用时，系统会首先检查APK是否被签名，
+        有签名才能安装。当应用程序升级时，系统会检查新旧签名是否相同，如果不同，则会被当作一个新的应用程序。Android通过不同的签名区分了不同的程序，
+        也保证了签名不同的包不会被替换，防止了恶意软件替换安装应用。\n
+        \n 3.权限声明机制:\n
+        Android针对不同的使用场景，将不同的权限进行了分级。如果应用需要的权限对用户隐私或者其它应用程序风险微乎其微，那么就将其划分为Normal权限，
+        系统会自动授予权限，如设置时间区域的权限。对应的，如果需要的权限访问用户的隐私数据或者影响存储数据，那么就会将此权限划分为Dangerous权限组，
+        需要用户确认。在最新的Androd6.0版本中，修改了以往的安装时获取权限的策略，变成了应用在运行时需要此权限时像用户确认是否授予权限。
+        防止了应用获取过多不必要的权限。\n
+        \n 4.SEAndroid:\n
+        SEAndroid安全机制与传统的DAC安全机制是并存关系的，同时也是一种基于安全策略的MAC安全机制。当一个进程访问一个文件的时，首先要进行基于UID/GID的DAC检查，
+        通过后才有资格进行SEAndroid的MAC安全检查。只要有一个检查不通过，那么访问文件的请求会被拒绝。\n
+        在SEAndroid中，存在对象的安全上下文的概念。其中对象又分为两种类型，主体（Subject）和客体（Object）。主体通常指进程，而客体就是指进程所要访问的资源，
+        例如文件、系统属性等。SEAndroid中的安全上下文实际上就是一个附加在对象上的标签，更近一说，就是一个字符串，由用户、角色、类型和安全级别加上冒号分隔组成。
+        当每一个进程和文件都关联上一个安全上下文后，系统管理员就可以基于这些安全上下文制定一个安全访问策略，用来规定什么样的进程可以访问什么样的文件。\n
+        \n
+
+</string>
 </resources>

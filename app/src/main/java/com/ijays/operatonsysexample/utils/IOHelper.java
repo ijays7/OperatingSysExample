@@ -141,6 +141,7 @@ public class IOHelper {
             this.errorMsg = errorMsg;
         }
     }
+
     public static CommandResult execCommand(String command, boolean isRoot) {
         return execCommand(new String[]{command}, isRoot, true);
     }

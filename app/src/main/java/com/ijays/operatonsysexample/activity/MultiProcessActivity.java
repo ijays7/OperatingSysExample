@@ -16,6 +16,7 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -47,6 +48,8 @@ import butterknife.Bind;
 public class MultiProcessActivity extends BaseActivity {
     @Bind(R.id.process_name)
     TextView mProcessName;
+    @Bind(R.id.method_tip)
+    TextView mMethodTip;
     @Bind(R.id.pass_data)
     TextView mPassData;
     @Bind(R.id.toolbar)
@@ -148,10 +151,12 @@ public class MultiProcessActivity extends BaseActivity {
             case AppConstants.INTENT_METHOD:
                 String passData = intent.getStringExtra(AppConstants.PASS_DATA);
                 mPassData.setText(passData);
+                mMethodTip.setText(this.getString(R.string.bundle_tip));
 
                 break;
             case AppConstants.SHARED_FILE_METHOD:
                 readDataWithSharingFile();
+                mMethodTip.setText(getString(R.string.file_share_tip));
 
                 break;
             case AppConstants.MESSENGER_METHOD:
@@ -261,7 +266,7 @@ public class MultiProcessActivity extends BaseActivity {
     protected void onDestroy() {
         if (mCurrentType == AppConstants.MESSENGER_METHOD) {
             unbindService(mConnection);
-        }else if (mCurrentType==1234){
+        } else if (mCurrentType == 1234) {
             unbindService(mAidlConnection);
         }
         super.onDestroy();

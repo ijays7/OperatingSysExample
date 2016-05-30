@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -31,8 +30,8 @@
         <activity
             android:name=".activity.PicExploreActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.TakePhotoActivity"></activity>
-        <activity android:name=".activity.MiscActivity"></activity>
+        <activity android:name=".activity.TakePhotoActivity" />
+        <activity android:name=".activity.MiscActivity" />
 
         <service android:name=".service.MessengerService" />
         <service android:name=".service.TCPServerService" />
@@ -42,6 +41,8 @@
             android:name=".provider.DataContentProvider"
             android:authorities="com.ijays.operatonsysexample.provider"
             android:permission="com.ijays.PROVIDER" />
+
+        <activity android:name=".activity.SafetyActivity"></activity>
     </application>
 
 </manifest>

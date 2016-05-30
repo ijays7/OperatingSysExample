@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/current_process"
+        android:textStyle="bold"
         android:paddingLeft="3dp"
         android:textSize="14sp" />
 

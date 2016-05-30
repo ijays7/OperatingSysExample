@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_crop_original_white_18dp"
-            fab:fab_label="获取图片"
+            fab:fab_label="@string/cache"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -59,15 +59,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_camera_alt_white_18dp"
-            fab:fab_label="拍照"
-            fab:fab_size="normal" />
+            fab:fab_label="@string/take_picture"
+            fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_folder_open_white_18dp"
-            fab:fab_label="I/O方式"
+            fab:fab_label="@string/input_management"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_folder_open_white_18dp"
-            fab:fab_label="浏览文件"
+            fab:fab_label="@string/file_management"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_folder_open_white_18dp"
-            fab:fab_label="安全管理"
+            fab:fab_label="@string/safety_management"
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>

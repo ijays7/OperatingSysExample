@@ -71,10 +71,6 @@ public class MainActivity extends BaseActivity
     com.github.clans.fab.FloatingActionButton mFab4;
     @Bind(R.id.fab5)
     com.github.clans.fab.FloatingActionButton mFab5;
-    //    @Bind(R.id.test)
-//    Button mTest;
-//    @Bind(R.id.fab)
-//    FloatingActionButton mFab;
 
     private boolean mIsStartService;
     private boolean mIsOpenMenu;//是否打开了菜单
@@ -105,8 +101,6 @@ public class MainActivity extends BaseActivity
         mFab3.setOnClickListener(this);
         mFab4.setOnClickListener(this);
         mFab5.setOnClickListener(this);
-//        mTest.setOnClickListener(this);
-//        mFab.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -135,7 +129,7 @@ public class MainActivity extends BaseActivity
             drawer.closeDrawer(GravityCompat.START);
         } else if (mIsOpenMenu) {
             mFabMenu.close(false);
-            mIsOpenMenu =false;
+            mIsOpenMenu = false;
         } else {
             super.onBackPressed();
         }
@@ -145,10 +139,6 @@ public class MainActivity extends BaseActivity
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-//            case R.id.fab:
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                break;
             case R.id.fab1:
                 mFabMenu.close(false);
                 startActivity(new Intent(MainActivity.this, PicExploreActivity.class));
@@ -167,9 +157,11 @@ public class MainActivity extends BaseActivity
             case R.id.fab4:
                 mFabMenu.close(false);
                 startActivity(new Intent(MainActivity.this, MiscActivity.class));
+                break;
             case R.id.fab5:
                 mFabMenu.close(false);
-                startActivity(new Intent(MainActivity.this, MiscActivity.class));
+                startActivity(new Intent(MainActivity.this, SafetyActivity.class));
+                break;
             case R.id.multi_process:
                 if (canPassData(view)) {
                     jumpToMultiProcess(AppConstants.INTENT_METHOD);
@@ -308,9 +300,6 @@ public class MainActivity extends BaseActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
