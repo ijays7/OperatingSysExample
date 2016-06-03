@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.activity.PicExploreActivity;
+import com.ijays.operatonsysexample.activity.ViewPagerActivity;
 import com.ijays.operatonsysexample.utils.ImageUrlUtils;
 
 /**
@@ -96,9 +97,9 @@ public class ImageListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 //TODO
-//                    Intent intent = new Intent(mActivity, ViewPagerActivity.class);
-//                    intent.putExtra("position", position);
-//                    mActivity.startActivity(intent);
+                    Intent intent = new Intent(mActivity, ViewPagerActivity.class);
+                    intent.putExtra("position", position);
+                    mActivity.startActivity(intent);
 
                 }
             });
