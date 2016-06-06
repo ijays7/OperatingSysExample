@@ -2,15 +2,20 @@ package com.ijays.operatonsysexample.activity;
 
 
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
+import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -123,20 +128,6 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else if (mIsOpenMenu) {
-            mFabMenu.close(false);
-            mIsOpenMenu = false;
-        } else {
-            super.onBackPressed();
-        }
-
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab1:
@@ -152,7 +143,12 @@ public class MainActivity extends BaseActivity
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(intent, 0x9090);
+                try {
+                    startActivityForResult(intent, 0x9090);
+                } catch (android.content.ActivityNotFoundException e) {
+                    Toast.makeText(MainActivity.this, "请安装文件管理器", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
                 break;
             case R.id.fab4:
                 mFabMenu.close(false);
@@ -295,17 +291,56 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_gallery) {
             startActivity(new Intent(MainActivity.this, PicExploreActivity.class));
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_file) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            try {
+                startActivityForResult(intent, 0x9090);
+            } catch (android.content.ActivityNotFoundException e) {
+                Toast.makeText(MainActivity.this, "请安装文件管理器", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        } else if (id == R.id.nav_safety) {
+            startActivity(new Intent(MainActivity.this, SafetyActivity.class));
+        } else if (id == R.id.nav_io) {
             startActivity(new Intent(MainActivity.this, MiscActivity.class));
-
-        } else if (id == R.id.nav_manage) {
-
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        switch (requestCode) {
+//            case 0x9090:
+////                if (resultCode == RESULT_OK) {//是否选择，没选择就不会继续
+////                    Uri uri = data.getData();//得到uri，后面就是将uri转化成file的过程。
+////                    Log.e("SONGJIE", uri.toString());
+////                    String[] proj = {MediaStore.Images.Media.DATA};
+////                    ContentResolver resolver = getContentResolver();
+////                    String fileType = resolver.getType(uri);
+////                    Log.e("SONGJIE", fileType);
+////                    Cursor cursor = resolver.query(uri, null, null, null, null);
+////                    if (cursor.moveToFirst()) {
+////                        String path = cursor.getString(cursor.getColumnIndex("_data"));
+////                        Log.e("SONGJIE", path + "");
+////                    }
+////                    Cursor actualimagecursor = getContentResolver().query(uri, proj, null, null, null);
+////                    int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+////                    actualimagecursor.moveToFirst();
+////                    String img_path = actualimagecursor.getString(actual_image_column_index);
+////                    //File file = new File(img_path);
+////                    Toast.makeText(MainActivity.this, img_path, Toast.LENGTH_SHORT).show();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -328,6 +363,19 @@ public class MainActivity extends BaseActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else if (mIsOpenMenu) {
+            mFabMenu.close(false);
+            mIsOpenMenu = false;
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

@@ -52,48 +52,12 @@ public class IOHelper {
         return curScheduler;
     }
 
-    public static void setCurScheduler(String data) {
-//        try {
-//            RCommand.setEnablePrivilege(Constants.SCHEDULER, true);
-//            RCommand.writeFileContent(Constants.SCHEDULER, data);
-//            RCommand.setEnablePrivilege(Constants.SCHEDULER, false);
-//
-//        }catch (Exception ep){
-//            ep.printStackTrace();
-//        }
-    }
-
-    // READ_AHEAD_KB
-    public static String getCurReadAhead() {
-//        String curReadAhead = "";
-//        try {
-//            curReadAhead = RCommand.readFileContent(Constants.READ_AHEAD_KB).
-//                    replace("\n", "") + " kb";
-//
-//        } catch (Exception ep) {
-//            ep.printStackTrace();
-//        }
-        return null;
-    }
-
-    public static void setCurReadAhead(String data) {
-//        try {
-//            RCommand.setEnablePrivilege(Constants.READ_AHEAD_KB, true);
-//            RCommand.writeFileContent(Constants.READ_AHEAD_KB, data);
-//            RCommand.setEnablePrivilege(Constants.READ_AHEAD_KB, false);
-//        } catch (Exception ep) {
-//            ep.printStackTrace();
-//        }
-    }
 
     // i/o scheduler status
     public static String getIOSchedulerStatusContent() {
         String ioSchedulerStatus = "get i/o scheduler status error";
         try {
             String curIOScheduler = getCurScheduler();
-            String curReadAhead = getCurReadAhead();
-            ioSchedulerStatus = "I/O Scheduler: " + curIOScheduler + "\n" +
-                    "Read Ahead: " + curReadAhead;
 
         } catch (Exception ep) {
             ep.printStackTrace();

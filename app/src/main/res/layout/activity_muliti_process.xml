@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/current_process"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="25dp"
             android:text="传递的数据: "
             android:textSize="16sp" />
 
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/current_process"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="25dp"
             android:layout_toRightOf="@id/data_name"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -67,8 +67,9 @@
             android:id="@+id/method_tip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lineSpacingExtra="2dp"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"/>
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:lineSpacingExtra="3dp"
+            android:textSize="@dimen/article_size" />
     </ScrollView>
 </LinearLayout>

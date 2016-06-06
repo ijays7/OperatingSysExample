@@ -23,11 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:drawableLeft="@drawable/ic_camera_alt_white_18dp"
+            android:drawableLeft="@drawable/ic_add_a_photo_white_24dp"
             android:drawablePadding="16dp"
             android:gravity="center_vertical"
-            android:paddingLeft="80dp"
-            android:text="Start Camera!"
+            android:paddingLeft="110dp"
+            android:text="开始拍照"
             android:textSize="15dp" />
 
         <ImageView
@@ -37,6 +37,15 @@
             android:layout_below="@id/bt_start_camera"
             android:layout_marginTop="25dp"
             android:fitsSystemWindows="true" />
+
+        <TextView
+            android:id="@+id/device_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bt_start_camera"
+            android:layout_marginTop="25dp"
+            android:lineSpacingExtra="3dp"
+            android:textSize="@dimen/article_size" />
     </RelativeLayout>
 
 </LinearLayout>

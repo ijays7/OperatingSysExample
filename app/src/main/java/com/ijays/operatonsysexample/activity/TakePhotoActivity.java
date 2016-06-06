@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.utils.Utils;
@@ -30,6 +31,8 @@ public class TakePhotoActivity extends BaseActivity {
     ImageView mImageView;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+    @Bind(R.id.device_tip)
+    TextView mDeviceTip;
 
     private Uri mPhotoUri;
     //图片路径
@@ -58,6 +61,8 @@ public class TakePhotoActivity extends BaseActivity {
                 startCamera2(view);
             }
         });
+
+        mDeviceTip.setText(getString(R.string.device_tip));
     }
 
     public void startCamera2(View view) {
@@ -80,6 +85,7 @@ public class TakePhotoActivity extends BaseActivity {
         switch (requestCode) {
             case REQUEST_CAMERA_2:
                 if (resultCode == RESULT_OK) {
+                    mDeviceTip.setVisibility(View.GONE);
                     setImageToView();
                     isTaked = true;
                 }

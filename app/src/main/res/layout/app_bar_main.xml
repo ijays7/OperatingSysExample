@@ -24,14 +24,6 @@
 
     <include layout="@layout/content_main" />
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="bottom|end"-->
-    <!--android:layout_margin="@dimen/fab_margin"-->
-    <!--android:src="@android:drawable/ic_dialog_email" />-->
-
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/fab_menu_red"
         android:layout_width="match_parent"
@@ -50,23 +42,23 @@
             android:id="@+id/fab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_crop_original_white_18dp"
-            fab:fab_label="@string/cache"
+            android:src="@drawable/ic_memory_white_24dp"
+            fab:fab_label="@string/memory_management"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_camera_alt_white_18dp"
-            fab:fab_label="@string/take_picture"
+            android:src="@drawable/ic_camera_alt_white_24dp"
+            fab:fab_label="@string/device_management"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_folder_open_white_18dp"
+            android:src="@drawable/ic_bubble_chart_white_24dp"
             fab:fab_label="@string/input_management"
             fab:fab_size="mini" />
 
@@ -74,7 +66,7 @@
             android:id="@+id/fab3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_folder_open_white_18dp"
+            android:src="@drawable/ic_folder_open_white_24dp"
             fab:fab_label="@string/file_management"
             fab:fab_size="mini" />
 
@@ -82,7 +74,7 @@
             android:id="@+id/fab5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_folder_open_white_18dp"
+            android:src="@drawable/ic_security_white_24dp"
             fab:fab_label="@string/safety_management"
             fab:fab_size="mini" />
 

@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,6 +21,12 @@ import butterknife.Bind;
 public class MiscActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+    @Bind(R.id.io_scheduler_value)
+    TextView mIOScheduler;
+    @Bind(R.id.support_bt)
+    Button mSupportIOButton;
+    @Bind(R.id.io_tip)
+    TextView mIOTips;
 
     @Override
     protected int getContentViewId() {
@@ -36,7 +43,7 @@ public class MiscActivity extends BaseActivity {
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         showAllDefault();
-        setOnListen();
+        setOnClick();
 
         new Thread(new Runnable() {
             @Override
@@ -65,9 +72,6 @@ public class MiscActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case UPDATE_TEXT:
-                    TextView showText = (TextView) findViewById(R.id.io_scheduler_status_content);
-                    showText.setText(IOSchedulerStatus);
-                    showAllDefault();
                     break;
                 default:
                     break;
@@ -77,36 +81,47 @@ public class MiscActivity extends BaseActivity {
 
     private void showAllDefault() {
         String curIOScheduler = IOHelper.getCurScheduler();
-        TextView tvIOScheduler = (TextView) findViewById(R.id.io_scheduler_value);
-        tvIOScheduler.setText(curIOScheduler);
+        mIOScheduler.setText(curIOScheduler);
+        String[] cpuAvailableFreq = IOHelper.getAvailableScheduler();
+        setWord(cpuAvailableFreq);
 
-        String curReadAhead = IOHelper.getCurReadAhead();
-        TextView tvCurReadAhead = (TextView) findViewById(R.id.read_ahead_value);
-        tvCurReadAhead.setText(curReadAhead);
+        if (curIOScheduler.equals("cfq")) {
+            mIOTips.setText(getString(R.string.cfq_tip));
+        } else if (curIOScheduler.equals("noop")) {
+            mIOTips.setText(getString(R.string.noop_tip));
+        } else if (curIOScheduler.equals("deadline")) {
+            mIOTips.setText(getString(R.string.deadline_tip));
+        } else if (curIOScheduler.equals("row")) {
+            mIOTips.setText(getString(R.string.row_tip));
+        }
     }
 
-    private void setOnListen() {
-        View vAvailableScheduler = findViewById(R.id.io_scheduler_value);
-        vAvailableScheduler.setOnClickListener(new View.OnClickListener() {
+    private void setWord(String[] cpuAvailableFreq) {
+        String content = "";
+        for (int i = 0; i < cpuAvailableFreq.length; i++) {
+            content += cpuAvailableFreq[i] + " ";
+        }
+//        mSupportedIO.setText(content);
+    }
+
+    private void setOnClick() {
+        mIOScheduler.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showSelectAvailableSchedulerDialog();
             }
         });
-
-        View vReadAhead = findViewById(R.id.read_ahead_value);
-        vReadAhead.setOnClickListener(new View.OnClickListener() {
+        mSupportIOButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                showSetReadAheadDialog();
+            public void onClick(View view) {
+                showSelectAvailableSchedulerDialog();
             }
         });
-
     }
 
     private void showSelectAvailableSchedulerDialog() {
         AlertDialog.Builder availableSchedulerDialog = new AlertDialog.Builder(this);
-        availableSchedulerDialog.setTitle("Select Scheduler");
+        availableSchedulerDialog.setTitle("Supported Scheduler");
         availableSchedulerDialog.setNegativeButton("cancel", null);
 
 
@@ -117,36 +132,12 @@ public class MiscActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 final AlertDialog ad = new AlertDialog.Builder(MiscActivity.this).setMessage(
 
-                        "你选择的是：" + ": " + cpuAvailableFreq[which]).show();
-                IOHelper.setCurScheduler(cpuAvailableFreq[which]);
+                        "你选择的是：" + cpuAvailableFreq[which]).show();
             }
         });
         availableSchedulerDialog.create().show();
     }
 
-    private void showSetReadAheadDialog() {
-        final EditText mEditText = new EditText(this);
-        AlertDialog.Builder readAheadDialog = new AlertDialog.Builder(this);
-        readAheadDialog.setTitle("Read Ahead Cache Size");
-        readAheadDialog.setView(mEditText);
-        readAheadDialog.setNegativeButton("cancel", null);
-        readAheadDialog.setPositiveButton("set", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String setValue = mEditText.getText().toString();
-                IOHelper.setCurReadAhead(setValue);
-            }
-        });
-
-        readAheadDialog.create().show();
-    }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_cpu, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

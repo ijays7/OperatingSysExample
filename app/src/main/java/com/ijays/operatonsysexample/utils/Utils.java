@@ -58,7 +58,7 @@ public class Utils {
      * @param context
      * @return
      */
-    public boolean isConnectToNet(Context context) {
+    public static boolean isConnectToNet(Context context) {
         ConnectivityManager manager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();

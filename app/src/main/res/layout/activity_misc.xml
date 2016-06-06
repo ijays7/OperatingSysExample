@@ -23,67 +23,86 @@
             android:id="@+id/tv_header"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/io_scheduler"
-            android:textStyle="bold" />
+            android:text="Current I/O Scheduler"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/io_scheduler_value"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5.0dip"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:text="@string/io_scheduler_value"
-            android:textAppearance="?android:textAppearanceSmall" />
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
+    <!--<LinearLayout-->
+    <!--android:id="@+id/linearLayout2"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/linearLayout"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="10.0dip">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/read_ahead"-->
+    <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/read_ahead_value"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="5.0dip"-->
+    <!--android:text="@string/read_ahead_value"-->
+    <!--android:textAppearance="?android:textAppearanceSmall" />-->
+    <!--</LinearLayout>-->
+
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="fill_parent"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:orientation="vertical"
         android:padding="10.0dip">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="fill_parent"
+        <Button
+            android:id="@+id/support_bt"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/read_ahead"
-            android:textStyle="bold" />
+            android:text="Supported I/O Scheduler" />
 
-        <TextView
-            android:id="@+id/read_ahead_value"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5.0dip"
-            android:text="@string/read_ahead_value"
-            android:textAppearance="?android:textAppearanceSmall" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/io_scheduler_status_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="@string/io_scheduler_status_content"-->
+        <!--android:textAppearance="?android:textAppearanceSmall" />-->
+
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="fill_parent"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:padding="10.0dip">
+        android:layout_below="@id/linearLayout3">
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="fill_parent"
+            android:id="@+id/io_tip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/io_scheduler_status"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/io_scheduler_status_content"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5.0dip"
-            android:text="@string/io_scheduler_status_content"
-            android:textAppearance="?android:textAppearanceSmall" />
-    </LinearLayout>
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:lineSpacingExtra="3dp"
+            android:textSize="@dimen/article_size" />
+    </ScrollView>
 
 
 </RelativeLayout>

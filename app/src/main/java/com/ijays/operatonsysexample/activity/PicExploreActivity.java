@@ -9,9 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.fragment.ImageListFragment;
+import com.ijays.operatonsysexample.fragment.MemManagementFragment;
+import com.ijays.operatonsysexample.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +25,17 @@ import butterknife.Bind;
 /**
  * Created by ijaysdev on 16/5/18.
  */
-public class PicExploreActivity extends BaseActivity {
+public class PicExploreActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.viewpager)
     ViewPager mViewPager;
     @Bind(R.id.tabs)
     TabLayout mTabLayout;
+    @Bind(R.id.no_net_view)
+    View mNoNetView;
+    @Bind(R.id.no_net_img)
+    ImageView mNonetImg;
 
     @Override
     protected int getContentViewId() {
@@ -46,10 +54,22 @@ public class PicExploreActivity extends BaseActivity {
             ab.setTitle("PicExplore");
             ab.setDisplayHomeAsUpEnabled(true);
         }
+        mNoNetView.setOnClickListener(this);
+        initView();
+    }
 
-        if (mViewPager != null) {
-            setupViewPager(mViewPager);
-            mTabLayout.setupWithViewPager(mViewPager);
+    private void initView() {
+        if (!Utils.isConnectToNet(PicExploreActivity.this.getApplicationContext())) {
+            mNoNetView.setVisibility(View.VISIBLE);
+            mTabLayout.setVisibility(View.GONE);
+
+        } else {
+            if (mViewPager != null) {
+                setupViewPager(mViewPager);
+                mTabLayout.setVisibility(View.VISIBLE);
+                mNoNetView.setVisibility(View.GONE);
+                mTabLayout.setupWithViewPager(mViewPager);
+            }
         }
     }
 
@@ -75,8 +95,16 @@ public class PicExploreActivity extends BaseActivity {
         bundle.putInt("type", 3);
         fragment.setArguments(bundle);
         adapter.addFragment(fragment, "three");
+        MemManagementFragment memTipFragment = new MemManagementFragment();
+        adapter.addFragment(memTipFragment, "Mem_Tip");
         viewPager.setAdapter(adapter);
     }
+
+    @Override
+    public void onClick(View view) {
+        initView();
+    }
+
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();

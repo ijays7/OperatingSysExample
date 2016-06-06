@@ -101,10 +101,12 @@ public class MultiProcessActivity extends BaseActivity {
             switch (msg.what) {
                 case 1234:
                     mPassData.setText(mContent);
+                    mMethodTip.setText(getString(R.string.socket_share_tip));
                     break;
                 case 0x02:
                     try {
                         mPassData.setText(mPassDataAidl.passData(mContent));
+                        mMethodTip.setText(getString(R.string.aidl_tip));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -172,6 +174,7 @@ public class MultiProcessActivity extends BaseActivity {
                     content = cursor.getString(1);
                 }
                 mPassData.setText(content);
+                mMethodTip.setText(getString(R.string.content_provider_tip));
                 cursor.close();
                 break;
             case AppConstants.SOCKET_METHOD:
@@ -279,6 +282,7 @@ public class MultiProcessActivity extends BaseActivity {
                 case AppConstants.MSG_FROM_SERVER:
                     Bundle bundle = msg.getData();
                     mPassData.setText(mContent);
+                    mMethodTip.setText(getString(R.string.messenger_share_tip));
                     break;
                 default:
                     super.handleMessage(msg);

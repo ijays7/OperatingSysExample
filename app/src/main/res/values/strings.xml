@@ -20,12 +20,15 @@
     <string name="safety_management">安全管理</string>
     <string name="file_management">文件管理</string>
     <string name="input_management">I/O管理</string>
-    <string name="take_picture">设备管理</string>
-    <string name="cache">获取图片</string>
+    <string name="device_management">设备管理</string>
+    <string name="memory_management">存储器管理</string>
+
+    <!-- memory management page -->
+    <string name="no_net">您的网络掉线了!</string>
 
     <!-- process tip -->
     <string name="bundle_tip">使用Bundle实现IPC:\n
-        \n 在Android中，四大组件中的三大组件（Activity、Service、Receiver）都是支持在Intent中传递Bundle数据的，
+        \n  在Android中，四大组件中的三大组件（Activity、Service、Receiver）都是支持在Intent中传递Bundle数据的，
         而Bundle实现了Parcelable序列化接口，由此，当一个进程中启动了另一个进程的Activity、Service和Receiver，
         我们就可以在Bundle中携带需要传输的信息并通过Intent发送出去。遗憾的是，传输的数据必须是能够序列化的，如基本类型、
         实现了Parcelabe接口的对象或者实现了Serializable接口的对象以及一些Android支持的特殊对象。这是最简单的一种IPC方式，
@@ -34,7 +37,7 @@
     </string>
 
     <string name="file_share_tip">使用文件共享实现IPC:\n
-        \n 文件共享在Android中也可以作为一种IPC方式。两个进程通过读／写同一个文件来交换数据，如进程A把数据写入文件，
+        \n  文件共享在Android中也可以作为一种IPC方式。两个进程通过读／写同一个文件来交换数据，如进程A把数据写入文件，
         B进程通过读取这个文件来获取数据。在Windows中，一个文件如果被加了排斥锁将会导致其他线程无法对其访问，包括读和写，
         而由于Android基于Linux，使得其可以实现并发地读和写，尽管这可能出现问题。\n
         通过文件共享来共享数据对文件格式没有具体的要求，可以是文本文件，可以是XML文件，只要读写双方约定数据格式即可。
@@ -43,7 +46,82 @@
 
      </string>
 
+    <string name="messenger_share_tip">使用Messenger实现IPC:\n
+        \n Messenger翻译为信使，是Android中一种轻量级的IPC方式。Messenger对AIDL进行了封装，使得服务端可以将
+        欲传递的数据写入到一个Message对象中，通过Messenger携带Message对象来实现将消息传递给位于不同进程的服务端，
+        然后服务端中新建一个Handler（消息处理者）来循环地读取接收到的消息，即可完成进程间的通信。这种实现方式的好处
+        在于隐藏了AIDL的实现细节，使用起来十分方便，同时由于由于使用Handler，服务端会一次只处理一个请求，避免了线
+        程同步的问题。由于Messenger中使用了Message作为消息的媒介，使得其传递消息的类型受到了Message的限制，
+        即Messenger中仅能传递后者支持的类型，即Bundle支持传递的数据类型.</string>
 
+    <string name="content_provider_tip">使用ContentProvider实现IPC:\n
+           \n 内容提供者（Content Provider）是Android中的四大组件之一，专门用于在不同应用间进行数据共享，因此它十
+        分适合进程间通信。内容提供者主要以表格的形式来组织数据，往往行和列对应一条数据，类似于SQLite等数据库。
+        ContentProvider功能十分强大，不仅支持表格的形式，同时还支持如图片、视频等的文件数据以及一对多的并发数据共享。\n
+        \n    由于是四大组件之一，所以它被进行了足够多的封装，使用起来也十分方便，也因为如此，在使用内容提供者的时候需要在
+        清单文件中声明，保证其正常运行。需要注意的是，声明的时候必须加上其唯一的标识authorities，以便外部应用可以访问.</string>
+
+    <string name="socket_share_tip">使用Socket实现IPC:\n
+    \n  Socket也被称为“套接字”，分为流式套接字和数据报套接字两种，分别对应网络的传输层中的TCP协议和UDP协议。
+        TCP是协议是面向连接的协议，提供稳定的双向通信功能，建立连接的过程需要“三次握手”才能完成，同时为了保证的数据
+        的稳定传输，具备了超时重传机制，因此拥有良好的稳定性。而UDP是无连接的，提供不稳定的单向通信功能。虽然UDP具
+        有更好的效率，但不一定能够保证数据的正确传输。Socket可以实现信息的传输，也可以实现进程的IPC。Socket通过网
+        络字节流传输数据，使得其功能十分强大，不仅支持多种数据类型，并且支持高并发的一对多通信。
+    </string>
+
+    <string name="aidl_tip">使用AIDL实现IPC:\n
+    \n  AIDL(Android Interface Definition Language)是一种Android内部进程通信接口描述语言，其内部基于Binder，通过它可以定义进程间的通信接口，实现跨进程的通信。
+AIDL基于C/S模式。在服务端需要创建一个Service用来监听客户端的连接请求，然后创建一个AIDL文件，在AIDL文件中声明暴露给外部程序的接口，最后在Service中实现这个接口即可。\n
+       \n    AIDL功能十分强大，不仅支持多种数据类型，同时也支持一对多的并发通信，是实际开发中的首选进程间通信方式。
+        不过，由于使用AIDL需要创建AIDL文件，并且实现AIDL中定义的接口，使用起来稍显繁琐。
+</string>
+
+    <!-- io management page-->
+    <string name="cfq_tip">CFQ（Completely Fair Queuing）即完全公平队列，该算法为每一个进程分配一个时间窗口，
+        在该时间窗口内，允许进程发出I/O请求。通过时间窗口在不同进程间的移动，保证了对于所有进程而言都有公平的发出I/O请求的机会。
+        此算法在Linux上表现良好，但并不是最适合Android的I/O算法，过度强度均衡，而降低了连续读写数据的性能。如某个任务休眠时间“非常短”，
+        那么cfq不会将该任务视为休眠任务，即短暂休眠的进程可能会获得一些额外时间。高通默认的调度算法就是此算法。</string>
+    <string name="noop_tip">NOOP（No Operation）：这个调度算法会把所有的数据请求直接合并到一个简单的队列当中，
+        每当来一个新的请求，仅仅按先来先处理的思路将请求插入到队列的尾部。此算法不适合有机械结构的存储器，因为没有优化顺序，
+        会增加额外的寻道事件。属于最简单的一种调度模式。这种模式会无视I/O操作优先级和复杂性，对系统省电有帮助。
+        不过如果读写操作繁多的话，就会造成效率降低。英伟达默认采用此调度方式。</string>
+    <string name="deadline_tip">Dealine（Deadline scheduler）：顾名思义，对每个I/O请求都附加一个过期时间。
+        如果当前没有I/O请求过期，则会按照扇区顺序执行I/O请求；如果发现过期的I/O请求，则会处理按照过期时间排序的队列，
+        直到所有的过期请求都被发射为止，保证先出现的I/O请求有最短的延迟时间。相对于写操作，给读操作更优先的级别。
+        具有较好的性能，是一种比较优秀的调度模式。</string>
+    <string name="row_tip">ROW（Read Over Write），这种调度模式会优先处理读的请求，在移动设备上读的请求远远大于写的请求，
+        并且随机读取速度很重要。此调度模式允许单或者双线程的读写，在同时有读写的情况下优先保证读，是一种比较适合移动设备的调度模式。</string>
+
+    <!-- device_tip-->
+    <string name="device_tip">在内核层与系统运行时库层之间还有一层叫做硬件抽象层（Hardware Abstract Layer，HAL）。
+        硬件抽象层运行在用户空间中，向下屏蔽硬件模块的实现细节，向上提供硬件访问服务。相比于Linux将对硬件的支持完全实现在内核空间中，
+        Android将对硬件的支持分为两层，其中一层是现在用户空间中，另一层实现在内核空间中。\n
+        \n调用相机拍照的过程在初始化过程首先会创建CameraService实例，然后将其注册到ServiceManager中。
+        在CameraService注册以及启动过程中，其本身会执行一些初始化操作，此时就会在硬件抽象层HAL中调用hw_get_module
+        函数来加载相机的硬件抽象层模块(CAMERA_HARDWARE_ MODULE_ID)，来获取相机硬件信息。
+
+</string>
+
+    <!-- memory_managment page-->
+<string name="mem_tip">1.Android内存管理机制:\n
+    随着闪存技术的不断发展，现在市面上的Android旗舰手机内存已经提升到了4G，内存不足的情况得到了很大的改善，流畅性也大大提升。
+    但是，由于Android采用了驻留后台的机制，导致在之前的设备上经常出现内存不足的情况，Android的设计者也考虑到了这种情况，
+    于是就出现了名为Low Memory Killer（LMK）的机制来管理内存。\n
+    \n当Android系统内存不足时，系统会杀掉一部分进程以释放空间，而执掌生杀大权的就是LMK。系统会更根据当前可用内存是否低于某个阀值来启动LMK，
+    如256M运行内存且可用内存不足24M时，此时Android会对进程的重要性进行评估，以adj的值与占用内存的大小来决定是否要杀死进程。
+    其中adj的值越小，则进程越不容易被杀死，如init进程（系统进程）的adj值为-16，则其不可能被杀死。\n
+    \n 2.匿名共享内存:\n
+    在Android系统中，提供了独特的匿名共享内存子系统Ashmem（Anonymous Shared Memory），
+    它以驱动程序的形式实现在内核空间中，用来在应用程序之间共享数据。应用程序可以动态地将一块匿名共享内存划分为若干个小块，
+    当这些小块不再需要使用时，它们就可以被内存管理系统回收。通过这种动态的、分治的内存管理方式，Android系统能够有效地使用系统内存，
+    适应内存较小的移动设备环境。\n
+    \n通过Ashmem机制，能够有效地改进内存管理系统的管理方法。当系统内存不足时，采用Ashmem机制能够有效地回收不再使用的内存，
+    保留有用的内存，提升内存使用率，这在实际开发过程十分重要。在Facebook之前推出的图片加载库fresco中，底层就是基于Ashmem实现，
+    保障了图片加载的效率，同时避免了内存溢出（Out of memory）。\n
+    \n\n
+    \n\n
+
+</string>
     <!-- safey page -->
     <string name="safe_measurement">1.进程沙箱隔离机制:\n在Android中，每个应用程序都运行在一个独立的Dalvik虚拟机（5.0版本为ART虚拟机）中，
         并会在安装时会被赋予唯一的用户标识（UID），并永久保持。这样，不同的程序能够运行在独立的Linux空间中，并且每个应用的文件、数据库资源也只有资源的所有者，

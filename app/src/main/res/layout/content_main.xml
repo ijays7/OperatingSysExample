@@ -29,7 +29,7 @@
         android:layout_toRightOf="@id/current_process"
         android:textStyle="bold"
         android:paddingLeft="3dp"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/pass_data"
