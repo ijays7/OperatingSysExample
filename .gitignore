@@ -6,3 +6,21 @@
 .DS_Store
 /build
 /captures
+
+# Intellij project files 
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Generated files
+bin/
+gen/
+
+# Files for the Dalvik VM
+*.dex
+*.apk
+*.log
+
+# Java class files
+*.class
