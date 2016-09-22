@@ -15,9 +15,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         String processName = Utils.getProcessName(getApplicationContext(), Process.myPid());
-        Log.e("SONGJIE", "process Name is " + processName);
         if (processName.equals("com.ijays,operaonsysexample")) {
-            Log.e("SONGJIE", "do");
+
             Fresco.initialize(getApplicationContext());
         }
     }

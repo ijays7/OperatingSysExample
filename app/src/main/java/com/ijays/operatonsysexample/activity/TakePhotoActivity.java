@@ -19,19 +19,19 @@ import com.ijays.operatonsysexample.utils.Utils;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class TakePhotoActivity extends BaseActivity {
     private static final int REQUEST_CAMERA_2 = 0x02;
     private static final int REQUEST_CROP_2 = 0x03;
 
-    @Bind(R.id.bt_start_camera)
+    @BindView(R.id.bt_start_camera)
     Button mStartCamera;
-    @Bind(R.id.iv_show)
+    @BindView(R.id.iv_show)
     ImageView mImageView;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.device_tip)
+    @BindView(R.id.device_tip)
     TextView mDeviceTip;
 
     private Uri mPhotoUri;

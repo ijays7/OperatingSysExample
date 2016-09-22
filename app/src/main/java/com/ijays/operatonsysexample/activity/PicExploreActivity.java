@@ -20,21 +20,21 @@ import com.ijays.operatonsysexample.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by ijaysdev on 16/5/18.
  */
 public class PicExploreActivity extends BaseActivity implements View.OnClickListener {
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.viewpager)
+    @BindView(R.id.viewpager)
     ViewPager mViewPager;
-    @Bind(R.id.tabs)
+    @BindView(R.id.tabs)
     TabLayout mTabLayout;
-    @Bind(R.id.no_net_view)
+    @BindView(R.id.no_net_view)
     View mNoNetView;
-    @Bind(R.id.no_net_img)
+    @BindView(R.id.no_net_img)
     ImageView mNonetImg;
 
     @Override

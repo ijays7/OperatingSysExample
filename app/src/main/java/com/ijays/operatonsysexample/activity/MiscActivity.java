@@ -10,22 +10,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.utils.IOHelper;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class MiscActivity extends BaseActivity {
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.io_scheduler_value)
+    @BindView(R.id.io_scheduler_value)
     TextView mIOScheduler;
-    @Bind(R.id.support_bt)
+    @BindView(R.id.support_bt)
     Button mSupportIOButton;
-    @Bind(R.id.io_tip)
+    @BindView(R.id.io_tip)
     TextView mIOTips;
 
     @Override

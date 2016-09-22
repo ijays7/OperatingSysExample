@@ -16,7 +16,6 @@ import android.os.Process;
 import android.os.RemoteException;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -39,20 +38,20 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 
 /**
  * Created by ijaysdev on 16/5/13.
  */
 public class MultiProcessActivity extends BaseActivity {
-    @Bind(R.id.process_name)
+    @BindView(R.id.process_name)
     TextView mProcessName;
-    @Bind(R.id.method_tip)
+    @BindView(R.id.method_tip)
     TextView mMethodTip;
-    @Bind(R.id.pass_data)
+    @BindView(R.id.pass_data)
     TextView mPassData;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     //记录当前进入的跳转类型

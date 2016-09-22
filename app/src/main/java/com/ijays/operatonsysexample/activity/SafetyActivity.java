@@ -7,10 +7,10 @@ import android.view.MenuItem;
 
 import com.ijays.operatonsysexample.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class SafetyActivity extends BaseActivity {
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     @Override

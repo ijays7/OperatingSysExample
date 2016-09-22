@@ -2,20 +2,16 @@ package com.ijays.operatonsysexample.activity;
 
 
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Process;
-import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -42,39 +38,40 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    @Bind(R.id.multi_process)
+    private static final int REQUEST_FILE_MANAGER = 0x900;
+    @BindView(R.id.multi_process)
     Button mMultiProcess;
-    @Bind(R.id.share_file)
+    @BindView(R.id.share_file)
     Button mShareFile;
-    @Bind(R.id.content_provider)
+    @BindView(R.id.content_provider)
     Button mContentProviderBt;
-    @Bind(R.id.messenger)
+    @BindView(R.id.messenger)
     Button mMessenger;
-    @Bind(R.id.bt_aidl)
+    @BindView(R.id.bt_aidl)
     Button mAidlIPC;
-    @Bind(R.id.socketIPC)
+    @BindView(R.id.socketIPC)
     Button mSocketIpc;
-    @Bind(R.id.process_name)
+    @BindView(R.id.process_name)
     TextView mProcessName;
-    @Bind(R.id.pass_data)
+    @BindView(R.id.pass_data)
     EditText mPassData;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @Bind(R.id.fab_menu_red)
+    @BindView(R.id.fab_menu_red)
     FloatingActionMenu mFabMenu;
-    @Bind(R.id.fab1)
+    @BindView(R.id.fab1)
     com.github.clans.fab.FloatingActionButton mFab1;
-    @Bind(R.id.fab2)
+    @BindView(R.id.fab2)
     com.github.clans.fab.FloatingActionButton mFab2;
-    @Bind(R.id.fab3)
+    @BindView(R.id.fab3)
     com.github.clans.fab.FloatingActionButton mFab3;
-    @Bind(R.id.fab4)
+    @BindView(R.id.fab4)
     com.github.clans.fab.FloatingActionButton mFab4;
-    @Bind(R.id.fab5)
+    @BindView(R.id.fab5)
     com.github.clans.fab.FloatingActionButton mFab5;
 
     private boolean mIsStartService;
@@ -144,7 +141,7 @@ public class MainActivity extends BaseActivity
                 intent.setType("*/*");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 try {
-                    startActivityForResult(intent, 0x9090);
+                    startActivityForResult(intent, REQUEST_FILE_MANAGER);
                 } catch (android.content.ActivityNotFoundException e) {
                     Toast.makeText(MainActivity.this, "请安装文件管理器", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
@@ -272,9 +269,8 @@ public class MainActivity extends BaseActivity
             return true;
 
         } else {
-//            Snackbar.make(view, "请输入需要传输的数据", Snackbar.LENGTH_SHORT).setAction("Action", null)
-//                    .show();
-            Toast.makeText(MainActivity.this, "请输入需要传输的数据", Toast.LENGTH_SHORT).show();
+            Snackbar.make(view, "请输入需要传输的数据", Snackbar.LENGTH_SHORT).setAction("Action", null)
+                    .show();
             return false;
         }
     }

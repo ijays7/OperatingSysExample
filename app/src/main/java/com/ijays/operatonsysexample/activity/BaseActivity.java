@@ -36,10 +36,4 @@ public class BaseActivity extends AppCompatActivity {
         return 0;
 
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-    }
 }
