@@ -176,8 +176,6 @@ public class MainActivity extends BaseActivity
                 break;
             case R.id.messenger:
                 if (canPassData(view)) {
-//                    Intent startServiceIntent=new Intent(this,MessengerService.class);
-//                    startService(startServiceIntent);
                     jumpToMultiProcess(AppConstants.MESSENGER_METHOD);
                 }
                 break;
@@ -306,37 +304,6 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        switch (requestCode) {
-//            case 0x9090:
-////                if (resultCode == RESULT_OK) {//是否选择，没选择就不会继续
-////                    Uri uri = data.getData();//得到uri，后面就是将uri转化成file的过程。
-////                    Log.e("SONGJIE", uri.toString());
-////                    String[] proj = {MediaStore.Images.Media.DATA};
-////                    ContentResolver resolver = getContentResolver();
-////                    String fileType = resolver.getType(uri);
-////                    Log.e("SONGJIE", fileType);
-////                    Cursor cursor = resolver.query(uri, null, null, null, null);
-////                    if (cursor.moveToFirst()) {
-////                        String path = cursor.getString(cursor.getColumnIndex("_data"));
-////                        Log.e("SONGJIE", path + "");
-////                    }
-////                    Cursor actualimagecursor = getContentResolver().query(uri, proj, null, null, null);
-////                    int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-////                    actualimagecursor.moveToFirst();
-////                    String img_path = actualimagecursor.getString(actual_image_column_index);
-////                    //File file = new File(img_path);
-////                    Toast.makeText(MainActivity.this, img_path, Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
