@@ -2,7 +2,6 @@ package com.ijays.operatonsysexample;
 
 import android.app.Application;
 import android.os.Process;
-import android.util.Log;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ijays.operatonsysexample.utils.Utils;

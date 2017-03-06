@@ -5,7 +5,7 @@ package com.ijays.operatonsysexample.utils;
  */
 public class ImageUrlUtils {
     public static String[] getImageUrls() {
-        String[] urls = new String[]{
+        return new String[]{
                 "http://img.my.csdn.net/uploads/201309/01/1378037235_3453.jpg",
                 "http://img.my.csdn.net/uploads/201309/01/1378037235_7476.jpg",
                 "http://img.my.csdn.net/uploads/201309/01/1378037235_9280.jpg",
@@ -60,6 +60,5 @@ public class ImageUrlUtils {
                 "http://img.my.csdn.net/uploads/201308/31/1377949442_4562.jpg"
 
         };
-        return urls;
     }
 }

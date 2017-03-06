@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
 
 android {
     signingConfigs {
@@ -11,7 +10,7 @@ android {
         }
     }
     compileSdkVersion 24
-    buildToolsVersion '24.0.2'
+    buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "com.ijays.operatonsysexample"
         minSdkVersion 15
@@ -31,8 +30,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'

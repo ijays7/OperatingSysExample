@@ -144,4 +144,5 @@ AIDL基于C/S模式。在服务端需要创建一个Service用来监听客户端
         \n
 
 </string>
+    <string name="author_name">ijays7</string>
 </resources>

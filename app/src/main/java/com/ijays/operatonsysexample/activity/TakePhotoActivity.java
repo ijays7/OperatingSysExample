@@ -37,7 +37,6 @@ public class TakePhotoActivity extends BaseActivity {
     private Uri mPhotoUri;
     //图片路径
     private String mFilePath;
-    private boolean isTaked;
 
     @Override
     protected int getContentViewId() {
@@ -87,7 +86,6 @@ public class TakePhotoActivity extends BaseActivity {
                 if (resultCode == RESULT_OK) {
                     mDeviceTip.setVisibility(View.GONE);
                     setImageToView();
-                    isTaked = true;
                 }
                 break;
             case REQUEST_CROP_2:

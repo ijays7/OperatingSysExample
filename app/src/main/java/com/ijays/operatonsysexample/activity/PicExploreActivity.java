@@ -95,6 +95,7 @@ public class PicExploreActivity extends BaseActivity implements View.OnClickList
         bundle.putInt("type", 3);
         fragment.setArguments(bundle);
         adapter.addFragment(fragment, "three");
+
         MemManagementFragment memTipFragment = new MemManagementFragment();
         adapter.addFragment(memTipFragment, "Mem_Tip");
         viewPager.setAdapter(adapter);

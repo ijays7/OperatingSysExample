@@ -25,10 +25,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.common.references.CloseableReference;
@@ -54,7 +54,7 @@ import com.ijays.operatonsysexample.photoview.PhotoViewAttacher.OnMatrixChangedL
 import com.ijays.operatonsysexample.photoview.PhotoViewAttacher.OnPhotoTapListener;
 import com.ijays.operatonsysexample.photoview.PhotoViewAttacher.OnViewTapListener;
 
-public class PhotoView extends ImageView implements IPhotoView, ImageDownloadListener {
+public class PhotoView extends AppCompatImageView implements IPhotoView, ImageDownloadListener {
 
     private PhotoViewAttacher mAttacher;
 

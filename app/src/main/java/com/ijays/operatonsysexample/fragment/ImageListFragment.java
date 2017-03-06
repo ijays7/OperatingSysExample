@@ -82,7 +82,7 @@ public class ImageListFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
+        public void onBindViewHolder(final ViewHolder holder, int position) {
             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) holder.mImageView.getLayoutParams();
             if (mRecyclerView.getLayoutManager() instanceof GridLayoutManager) {
                 layoutParams.height = 200;
@@ -98,7 +98,7 @@ public class ImageListFragment extends Fragment {
                 public void onClick(View v) {
 //TODO
                     Intent intent = new Intent(mActivity, ViewPagerActivity.class);
-                    intent.putExtra("position", position);
+                    intent.putExtra("position", holder.getAdapterPosition());
                     mActivity.startActivity(intent);
 
                 }

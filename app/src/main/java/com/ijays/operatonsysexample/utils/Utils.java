@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.telecom.ConnectionService;
 
 import com.ijays.operatonsysexample.AppConstants;
 
@@ -84,8 +83,7 @@ public class Utils {
         float scaleWidth = ((float) width / w);
         float scaleHeight = ((float) height / h);
         matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
-        return newbmp;
+        return Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
     }
 
     /**

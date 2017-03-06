@@ -24,13 +24,10 @@ public class DataContentProvider extends ContentProvider {
     }
 
     private SQLiteDatabase mDb;
-    private Context mContext;
-
 
     @Override
     public boolean onCreate() {
-        mContext = getContext();
-        mDb = new PassDataDbHelper(mContext).getWritableDatabase();
+        mDb = new PassDataDbHelper(getContext()).getWritableDatabase();
         return false;
     }
 

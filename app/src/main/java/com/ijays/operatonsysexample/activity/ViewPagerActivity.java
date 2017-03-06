@@ -9,12 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ijays.operatonsysexample.AppConstants;
 import com.ijays.operatonsysexample.R;
 import com.ijays.operatonsysexample.photoview.PhotoView;
 import com.ijays.operatonsysexample.utils.ImageUrlUtils;
 import com.ijays.operatonsysexample.widget.HackyViewPager;
-import com.ijays.operatonsysexample.widget.ImageDownloadListener;
 
 /**
  * Created by ijaysdev on 16/6/3.
@@ -22,7 +20,6 @@ import com.ijays.operatonsysexample.widget.ImageDownloadListener;
 public class ViewPagerActivity extends AppCompatActivity {
     private static final String ISLOCKED_ARG = "isLocked";
     private ViewPager mViewPager;
-    private int position;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +30,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         mViewPager.setAdapter(new SamplePagerAdapter());
         if (getIntent() != null) {
-            position = getIntent().getIntExtra("position", 0);
+            int position = getIntent().getIntExtra("position", 0);
             mViewPager.setCurrentItem(position);
         }
 

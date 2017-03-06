@@ -1,7 +1,5 @@
 package com.ijays.operatonsysexample.utils;
 
-import com.facebook.common.file.FileUtils;
-import com.ijays.operatonsysexample.App;
 import com.ijays.operatonsysexample.AppConstants;
 
 import java.io.BufferedReader;
